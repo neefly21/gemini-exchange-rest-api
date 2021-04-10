@@ -6,8 +6,7 @@ import hashlib
 import datetime, time
 import const
 
-base_url = "https://api.sandbox.gemini.com"
-url = "https://api.sandbox.gemini.com"
+base_url = const.url
 endpoint = "/v1/order/new"
 url = base_url + endpoint
 
@@ -20,9 +19,10 @@ payload_nonce =  str(int(time.mktime(t.timetuple())*1000))
 response = requests.get(base_url + "/v1/pubticker/btcusd")
 btc_data = response.json()
 
-orderSize = 100.0
+
+orderSizeInUSD = 100.0 # default is $100 
 mostRecentSalePrice = float(btc_data['last'])
-orderQuantity = orderSize / mostRecentSalePrice
+orderQuantity = orderSizeInUSD / mostRecentSalePrice
 
 print("Current Price:" )
 print(mostRecentSalePrice)
